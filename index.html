@@ -1,0 +1,268 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="default-src 'self' blob: data:;
+             img-src 'self' blob: data:;
+             media-src 'self' blob:;
+             style-src 'self' 'unsafe-inline';
+             script-src 'self';"
+  >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Peanut Butter</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="blob blob-one"></div>
+  <div class="blob blob-two"></div>
+
+  <main class="app-shell">
+
+    <header>
+      <div class="brand">
+        <div class="jar">
+          <div class="jar-lid"></div>
+          <div class="jar-body">
+            <span>PB</span>
+          </div>
+        </div>
+
+        <div>
+          <h1>Peanut Butter</h1>
+          <p class="tagline">screen recording, but make it GIF.</p>
+        </div>
+      </div>
+
+      <div id="statusPill" class="status-pill idle">
+        <span class="status-dot"></span>
+        <span id="statusText">READY TO SPREAD</span>
+      </div>
+    </header>
+
+
+    <section class="card hero">
+
+      <div class="preview-wrap">
+
+        <video
+          id="screenPreview"
+          autoplay
+          muted
+          playsinline
+        ></video>
+
+        <img
+          id="gifPreview"
+          alt="Your baked GIF"
+        >
+
+        <div id="emptyPreview" class="empty-preview">
+          <div class="mouse-doodle">
+            <div class="mouse-ear left"></div>
+            <div class="mouse-ear right"></div>
+            <div class="mouse-face">•ᴗ•</div>
+          </div>
+
+          <h2>Ready when you are.</h2>
+          <p>
+            Hit record, wiggle around, click stuff,
+            then bake it into a GIF.
+          </p>
+        </div>
+
+        <div id="cursorOverlay" class="cursor-overlay">
+          <div class="cursor-arrow"></div>
+          <div id="clickPop" class="click-pop"></div>
+        </div>
+
+        <div id="recordBadge" class="record-badge">
+          <span></span>
+          REC
+        </div>
+
+        <!--
+          Peanut Butter Sandwich Factory
+
+          This is not a fake loading animation.
+          renderer.js maps actual processing stages and
+          gif.js worker progress into this display.
+        -->
+        <div id="factoryOverlay" class="factory-overlay">
+
+          <div class="factory-card">
+
+            <div class="sandwich-scene">
+
+              <div class="plate"></div>
+
+              <div class="bread bread-bottom">
+                <div
+                  id="peanutSpread"
+                  class="spread peanut-spread">
+                </div>
+
+                <div
+                  id="jellySpread"
+                  class="spread jelly-spread">
+                </div>
+              </div>
+
+              <div
+                id="breadTop"
+                class="bread bread-top">
+              </div>
+
+              <div id="sparkles" class="sparkles">
+                ✦ ✧ ✦
+              </div>
+
+            </div>
+
+            <div id="factoryStage" class="factory-stage">
+              GETTING THE BREAD
+            </div>
+
+            <div id="factoryDetail" class="factory-detail">
+              Preparing your recording…
+            </div>
+
+            <div class="factory-progress-shell">
+              <div
+                id="factoryProgress"
+                class="factory-progress">
+              </div>
+            </div>
+
+            <div class="factory-meta">
+              <span id="factoryPercent">0%</span>
+              <span id="factoryEta">warming up…</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="dashboard">
+
+        <div class="stat">
+          <span class="stat-label">TIME</span>
+          <strong id="timeValue">00:00.0</strong>
+        </div>
+
+        <div class="stat">
+          <span class="stat-label">FRAMES</span>
+          <strong id="frameValue">0</strong>
+        </div>
+
+        <div class="stat">
+          <span class="stat-label">MOUSE</span>
+          <strong id="mouseValue">—</strong>
+        </div>
+
+        <div class="stat">
+          <span class="stat-label">OUTPUT</span>
+          <strong id="sizeValue">—</strong>
+        </div>
+
+      </div>
+
+
+      <div class="controls">
+
+        <button id="recordButton" class="big-button record">
+          <span class="button-icon">●</span>
+          RECORD
+        </button>
+
+        <button id="stopButton" class="big-button stop" disabled>
+          <span class="button-icon">■</span>
+          STOP
+        </button>
+
+        <button id="saveButton" class="big-button save" disabled>
+          <span class="button-icon">↓</span>
+          SAVE GIF
+        </button>
+
+      </div>
+
+      <p id="message" class="message">
+        Peanut Butter records your primary display at a GIF-friendly frame rate.
+      </p>
+
+    </section>
+
+
+    <section class="settings-card">
+
+      <div>
+        <label for="fpsSelect">GIF SPEED</label>
+
+        <select id="fpsSelect">
+          <option value="8">8 FPS — tiny</option>
+          <option value="10" selected>10 FPS — smooth</option>
+          <option value="12">12 FPS — smoother</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="widthSelect">GIF WIDTH</label>
+
+        <select id="widthSelect">
+          <option value="640">640 px</option>
+          <option value="800" selected>800 px</option>
+          <option value="960">960 px</option>
+        </select>
+      </div>
+
+      <div class="setting bite-setting">
+  <label for="biteSelect">BITE SIZE</label>
+
+  <select id="biteSelect">
+    <option value="light">
+      Light Bite — smaller
+    </option>
+
+    <option value="smooth" selected>
+      Smooth Bite — balanced
+    </option>
+
+    <option value="chunky">
+      Extra Chunky — maximum detail
+    </option>
+  </select>
+</div>
+<div class="tip">
+        <span>🥜</span>
+        <p>
+          Short recordings make happier GIFs.
+          Start with 5–15 seconds.
+        </p>
+      </div>
+
+    </section>
+
+    <footer>
+      PEANUT BUTTER v0.1 • GIF LIKE JIF
+    </footer>
+
+  </main>
+
+  <canvas id="captureCanvas"></canvas>
+
+  <script src="node_modules/gif.js/dist/gif.js"></script>
+  <script src="renderer.js"></script>
+
+</body>
+</html>
+
+
+

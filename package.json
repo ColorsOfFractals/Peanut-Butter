@@ -1,0 +1,42 @@
+{
+    "name": "peanut-butter",
+    "version": "0.1.0",
+    "description": "Screen recording, but make it GIF.",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron .",
+        "dist": "electron-builder --win nsis"
+    },
+    "dependencies": {
+        "gif-encoder-2": "^1.0.5",
+        "gif.js": "^0.2.0"
+    },
+    "devDependencies": {
+        "electron": "^38.0.0",
+        "electron-builder": "^26.15.3"
+    },
+    "build": {
+        "appId": "com.peanutbutter.gif",
+        "productName": "Peanut Butter",
+        "directories": {
+            "output": "dist"
+        },
+        "files": [
+            "**/*",
+            "!dist/**/*",
+            "!.rsi-backup-*/*"
+        ],
+        "win": {
+            "icon": "Peanut_Butter.ico",
+            "target": "nsis"
+        },
+        "nsis": {
+            "oneClick": false,
+            "allowToChangeInstallationDirectory": true,
+            "createDesktopShortcut": true,
+            "createStartMenuShortcut": true,
+            "shortcutName": "Peanut Butter",
+            "artifactName": "PeanutButter-${version}-Setup.${ext}"
+        }
+    }
+}
