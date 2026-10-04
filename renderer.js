@@ -95,7 +95,7 @@ function getBitePreset() {
     default:
       return {
         name: "SMOOTH BITE",
-        quality: getBitePreset().quality,
+        quality: 10,
         workers: Math.max(
           2,
           Math.min(
